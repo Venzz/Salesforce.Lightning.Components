@@ -1,0 +1,22 @@
+<template>
+    <div class="slds-grid slds-grid_vertical">
+        <template if:false={isHeaderEmpty}>
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{header}</h2>
+            </header>
+        </template>
+        <template if:true={isHeaderEmpty}>
+            <header class="slds-modal__header slds-modal__header_empty"></header>
+        </template>
+        <div class="slds-col slds-modal__content slds-p-around_medium" style="overflow: visible; position: relative;">
+            <template if:true={actionProgressIndicator}>
+                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+            </template>
+            <slot></slot>
+        </div>
+        <footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={onCancelClicked} disabled={actionProgressIndicator}>Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={onActionClicked} disabled={actionProgressIndicator}>{actionTitle}</button>
+        </footer>
+    </div>
+</template>
