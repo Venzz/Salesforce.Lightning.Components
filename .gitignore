@@ -1,0 +1,5 @@
+.sfdx/
+config/project-scratch-def.json
+.vscode/
+.forceignore
+sfdx-project.json
