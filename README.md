@@ -42,3 +42,40 @@ export default class QuickAction extends LightningElement {
     }
 }
 ```
+## Modal Dialog
+
+
+
+##### 1. Example
+lwc/helloWorld.cmp
+```html
+<aura:component>
+    <c-component-modal-dialog header="Hello World" action-title="Yes" onaction={onYesPressed}>
+        <span>Is there a cow level?</span>
+    </c-component-modal-dialog>
+	...
+</aura:component>
+```
+lwc/helloWorld.js
+```javascript
+ onCancelled() {
+ 	var dialog = this.template.querySelector('c-component-modal-dialog');
+	dialog.open();
+ }
+ 
+ onYesPressed() {
+ 	// do things
+ }
+```
+##### 2. Async Example
+lwc/helloWorld.js
+```javascript
+ async onCancelled() {
+ 	var action = await this.template.querySelector('c-component-modal-dialog').askAsync();
+	if (!action) {
+		// cancelled
+	} else {
+		// action pressed
+	}
+ }
+```

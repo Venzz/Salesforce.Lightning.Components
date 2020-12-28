@@ -3,3 +3,4 @@ config/project-scratch-def.json
 .vscode/
 .forceignore
 sfdx-project.json
+force-app/main/default/lwc/development
