@@ -1,0 +1,12 @@
+<template>
+    <template if:true={visible}>
+        <section class="slds-modal slds-fade-in-open" role="dialog">
+            <div class="slds-modal__container">
+                <c-component-modal-dialog-content header={header} action-title={actionTitle} onaction={onActionClicked} oncancel={onCancelClicked}>
+                    <slot></slot>
+                </c-component-modal-dialog-content>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
