@@ -1,4 +1,4 @@
-public class JsonPrimitive extends JsonValue {
+global class JsonPrimitive extends JsonValue {
     private Object value;
 
     private JsonPrimitive(Object value) {
@@ -7,51 +7,51 @@ public class JsonPrimitive extends JsonValue {
     
     // Objects -> String
 
-    public static JsonPrimitive create(Boolean input) {
+    global static JsonPrimitive create(Boolean input) {
         return new JsonPrimitive(input);
     }
 
-    public static JsonPrimitive create() {
+    global static JsonPrimitive create() {
         return new JsonPrimitive(null);
     }
 
-    public static JsonPrimitive create(Decimal input) {
+    global static JsonPrimitive create(Decimal input) {
         return new JsonPrimitive(input);
     }
 
-    public static JsonPrimitive create(Integer input) {
+    global static JsonPrimitive create(Integer input) {
         return new JsonPrimitive(input);
     }
 
-    public static JsonPrimitive create(String input) {
+    global static JsonPrimitive create(String input) {
         return new JsonPrimitive(input);
     }
     
     // String -> Objects
 
-    public String getString() {
+    global String getString() {
         return (String)value;
     }
 
-    public Boolean getBoolean() {
+    global Boolean getBoolean() {
         return (Boolean)value;
     }
 
-    public Decimal getDecimal() {
+    global Decimal getDecimal() {
         return (Decimal)value;
     }
 
-    public Integer getInteger() {
+    global Integer getInteger() {
         return (Integer)value;
     }
 
-    public Boolean isString() {
+    global Boolean isString() {
         return value instanceof String;
     }
 
     // Stringify
 
-    public String stringify() {
+    global override String stringify() {
         JSONGenerator generator = JSON.createGenerator(false);
         build(generator);
         return generator.getAsString();

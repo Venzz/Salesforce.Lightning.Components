@@ -1,7 +1,15 @@
-public abstract class JsonValue {
-    protected abstract void build(JsonGenerator jsonGenerator);
+global abstract class JsonValue {
+    public JsonValue() {
+    }
 
-    public static JsonValue tryParse(String input) {
+    protected virtual void build(JsonGenerator jsonGenerator) {
+    }
+
+    global virtual String stringify() {
+        return '';
+    }
+
+    global static JsonValue tryParse(String input) {
         try {
             return parse(input);
         } catch (Exception error) {
@@ -9,7 +17,7 @@ public abstract class JsonValue {
         }
     }
 
-    public static JsonValue parse(String input) {
+    global static JsonValue parse(String input) {
         Object deserializedInput = JSON.deserializeUntyped(input);
         return parse(deserializedInput);
     }
