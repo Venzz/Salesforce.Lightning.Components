@@ -10,13 +10,41 @@
         </template>
         <div class="slds-col slds-modal__content slds-p-around_medium" style="overflow: visible; position: relative;">
             <template if:true={actionProgressIndicator}>
-                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+                <div class="slds-spinner_container" style="position: absolute; width: 100%; height: 100%"></div>
             </template>
             <slot></slot>
         </div>
+        <!-- <footer class="slds-modal__footer">
+            <div role="status" class="slds-spinner slds-spinner_inline slds-spinner_medium slds-spinner_brand" style="display: inline-block; height: 3px; margin-right: 14px; transform: scale(0.80);">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+            <button class="slds-button slds-button_neutral">Cancel</button>
+            <button class="slds-button slds-button_brand">Submit</button>
+        </footer> -->
+        <!--<footer class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={onCancelClicked}>Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={onActionClicked}>
+                <div role="status" class="slds-spinner slds-spinner_inline slds-spinner_medium slds-spinner_brand" style="display: inline-block; height: 3px; margin-right: 14px; transform: scale(0.80);">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </button>
+        </footer>-->
         <footer class="slds-modal__footer">
             <button class="slds-button slds-button_neutral" onclick={onCancelClicked} disabled={actionProgressIndicator}>Cancel</button>
-            <button class="slds-button slds-button_brand" onclick={onActionClicked} disabled={actionProgressIndicator}>{actionTitle}</button>
+            <div class="slds-m-left_x-small" style="display: inline; position: relative;">
+                <template if:false={actionProgressIndicator}>
+                    <button class="slds-button slds-button_brand" onclick={onActionClicked}>Submit</button>
+                </template>
+                <template if:true={actionProgressIndicator}>
+                    <button class="slds-button slds-button_brand" style="visibility: hidden" onclick={onActionClicked}>Submit</button>
+                    <div class="slds-spinner slds-spinner_inline slds-spinner_medium slds-spinner_brand" style="position: absolute; left: 50%; display: inline-block; height: 30px; transform: scale(0.75) translateX(-50%) translateY(50%);">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </template>
+            </div>
         </footer>
     </div>
 </template>
