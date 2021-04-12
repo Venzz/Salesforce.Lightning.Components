@@ -40,27 +40,27 @@ global class JsonObject extends JsonValue {
     }
 
     global JsonArray getNamedArray(String name) {
-        return propertyValues.containsKey(name) ? (JsonArray)propertyValues.get(name) : null;
+        return (JsonArray)propertyValues.get(name);
     }
 
     global JsonObject getNamedObject(String name) {
-        return propertyValues.containsKey(name) ? (JsonObject)propertyValues.get(name) : null;
+        return (JsonObject)propertyValues.get(name);
     }
 
     global String getNamedString(String name) {
-        return ((JsonPrimitive)propertyValues.get(name)).getString();
+        return ((JsonPrimitive)propertyValues.get(name))?.getString();
     }
 
     global Boolean getNamedBoolean(String name) {
-        return ((JsonPrimitive)propertyValues.get(name)).getBoolean();
+        return ((JsonPrimitive)propertyValues.get(name))?.getBoolean();
     }
 
     global Decimal getNamedDecimal(String name) {
-        return ((JsonPrimitive)propertyValues.get(name)).getDecimal();
+        return ((JsonPrimitive)propertyValues.get(name))?.getDecimal();
     }
 
     global Integer getNamedInteger(String name) {
-        return ((JsonPrimitive)propertyValues.get(name)).getInteger();
+        return ((JsonPrimitive)propertyValues.get(name))?.getInteger();
     }
 
     global Boolean containsObject(String name) {

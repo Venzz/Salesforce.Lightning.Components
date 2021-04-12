@@ -42,19 +42,19 @@ global class JsonArray extends JsonValue {
     }
 
     global String getString(Integer index) {
-        return ((JsonPrimitive)values.get(index)).getString();
+        return ((JsonPrimitive)values.get(index))?.getString();
     }
 
     global Boolean getBoolean(Integer index) {
-        return ((JsonPrimitive)values.get(index)).getBoolean();
+        return ((JsonPrimitive)values.get(index))?.getBoolean();
     }
 
     global Integer getInteger(Integer index) {
-        return ((JsonPrimitive)values.get(index)).getInteger();
+        return ((JsonPrimitive)values.get(index))?.getInteger();
     }
 
     global Decimal getDecimal(Integer index) {
-        return ((JsonPrimitive)values.get(index)).getDecimal();
+        return ((JsonPrimitive)values.get(index))?.getDecimal();
     }
 
     global Integer size() {

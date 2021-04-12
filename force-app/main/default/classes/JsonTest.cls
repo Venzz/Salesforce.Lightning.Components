@@ -180,20 +180,132 @@ public class JsonTest {
         System.assertEquals(null, inputArray);
     }
 
-    /*@IsTest static void createsJsonStringUsingClassConstructors() {
-        JsonObject value = new JsonObject(new Map<String, Object> {
-            'menu' => new Map<String, Object> {
-                'id' => 'file',
-                'value' => 'File',
-                'size' => 0.25
-            },
-            'popup' => new Map<String, Object> {
-                'menuitem' => new List<Object> {
-                    new Map<String, Object> { 'value' => 'New', 'onclick' => 'CreateNewDoc()' },
-                    new Map<String, Object> { 'value' => 'Open', 'onclick' => 'OpenDoc()' }
-                }
-            }
-        });
-        System.assertEquals('{"menu":{"id":"file","value":"File","size":0.25,"popup":{"menuitem":[{"value":"New","onclick":"CreateNewDoc()"},{"value":"Open","onclick":"OpenDoc()"}]}}}', value.stringify());
-    }*/
+    @IsTest static void returnsNullIfParserIsUnableToFindValue() {
+        JsonObject inputObject = JsonObject.parse('{"Property": 0.02}');
+        System.assertEquals(null, inputObject.getNamedObject('address'));
+        System.assertEquals(null, inputObject.getNamedArray('address'));
+        System.assertEquals(null, inputObject.getNamedString('address'));
+        System.assertEquals(null, inputObject.getNamedBoolean('address'));
+        System.assertEquals(null, inputObject.getNamedDecimal('address'));
+        System.assertEquals(null, inputObject.getNamedInteger('address'));
+    }
+
+    @IsTest static void throwsExceptionIfParserIsUnableToGetValueByIndex() {
+        JsonArray inputArray = JsonArray.parse('[]');
+
+        try {
+            inputArray.getObject(1);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals('List index out of bounds: 1', error.getMessage());
+        }
+        try {
+            inputArray.getArray(1);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals('List index out of bounds: 1', error.getMessage());
+        }
+        try {
+            inputArray.getString(1);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals('List index out of bounds: 1', error.getMessage());
+        }
+        try {
+            inputArray.getBoolean(1);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals('List index out of bounds: 1', error.getMessage());
+        }
+        try {
+            inputArray.getDecimal(1);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals('List index out of bounds: 1', error.getMessage());
+        }
+        try {
+            inputArray.getInteger(1);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals('List index out of bounds: 1', error.getMessage());
+        }
+    }
+
+    @IsTest static void throwsExceptionIfParserIsUnableToIdentifyValue() {
+        JsonObject inputObject = JsonObject.parse('{"Property": 0.02}');
+        try {
+            inputObject.getNamedObject('Property');
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            inputObject.getNamedArray('Property');
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            inputObject.getNamedString('Property');
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            inputObject.getNamedBoolean('Property');
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            JsonObject.parse('{"Property": "1"}').getNamedDecimal('Property');
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            inputObject.getNamedInteger('Property');
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+
+        JsonArray inputArray = JsonArray.parse('[0.02]');
+        try {
+            inputArray.getObject(0);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            inputArray.getArray(0);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            inputArray.getString(0);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            inputArray.getBoolean(0);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            JsonArray.parse('["1"]').getDecimal(0);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+        try {
+            inputArray.getInteger(0);
+            System.assert(false);
+        } catch (Exception error) {
+            System.assertEquals(true, error.getMessage().contains('Invalid conversion from runtime type'));
+        }
+    }
 }
