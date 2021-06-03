@@ -5,6 +5,7 @@ export default class ComponentModalDialogContent extends LightningElement {
 
     @api header;
     @api actionTitle = 'Save';
+    @api actionDisabled = false;
 
 
 
@@ -26,5 +27,9 @@ export default class ComponentModalDialogContent extends LightningElement {
 
     onCancelClicked() {
         this.dispatchEvent(new CustomEvent('cancel'));
+    }
+
+    get isActionDisabled() {
+        return this.actionProgressIndicator || this.actionDisabled;
     }
 }
