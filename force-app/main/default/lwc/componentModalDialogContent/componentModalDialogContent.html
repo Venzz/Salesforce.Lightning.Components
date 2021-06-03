@@ -15,7 +15,7 @@
             <slot></slot>
         </div>
         <footer class="slds-modal__footer">
-            <button class="slds-button slds-button_neutral" onclick={onCancelClicked} disabled={actionProgressIndicator}>Cancel</button>
+            <button class="slds-button slds-button_neutral" onclick={onCancelClicked} disabled={actionProgressIndicator}>{cancelTitle}</button>
             <button class="slds-button slds-button_brand" onclick={onActionClicked} disabled={isActionDisabled}>{actionTitle}</button>
         </footer>
     </div>

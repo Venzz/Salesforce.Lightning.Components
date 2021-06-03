@@ -5,6 +5,7 @@ export default class ComponentModalDialogContent extends LightningElement {
 
     @api header;
     @api actionTitle = 'Save';
+    @api cancelTitle = 'Cancel';
     @api actionDisabled = false;
 
 
