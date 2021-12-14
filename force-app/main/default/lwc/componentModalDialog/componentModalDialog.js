@@ -6,6 +6,9 @@ export default class ComponentModalDialog extends LightningElement {
 
     @api header;
     @api actionTitle = 'Okay';
+    @api maxWidth = '40rem';
+    @api actionDisabled = false;
+    @api action;
 
 
 
@@ -24,21 +27,42 @@ export default class ComponentModalDialog extends LightningElement {
         });
     }
 
-    onActionClicked() {
-        this.visible = false;
+    async onActionClicked() {
+        let settings = {};
+        let content = this.template.querySelector('c-component-modal-dialog-content');
+        content.showError(undefined);
+
+        if (this.action) {
+            let actionResult = this.action(settings);
+            if (actionResult instanceof Promise) {
+                content.startActionProgress();
+                await actionResult;
+                content.stopActionProgress();
+            }
+        }
+        if (settings.error) {
+            content.showError(settings.error);
+        }
+        if (!settings.preventClosing) {
+            this.close();
+        }
         this.dispatchEvent(new CustomEvent('action'));
         if (this.askAsyncResolve) {
-            this.askAsyncResolve('action');
+            this.askAsyncResolve('result: action button clicked.');
             this.askAsyncResolve = null;
         }
     }
 
     onCancelClicked() {
-        this.visible = false;
+        this.close();
         this.dispatchEvent(new CustomEvent('cancel'));
         if (this.askAsyncResolve) {
             this.askAsyncResolve(null);
             this.askAsyncResolve = null;
         }
+    }
+
+    get style() {
+        return `max-width: ${this.maxWidth}`;
     }
 }

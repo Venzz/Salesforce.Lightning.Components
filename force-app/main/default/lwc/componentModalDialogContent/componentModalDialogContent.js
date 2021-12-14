@@ -2,6 +2,8 @@ import { LightningElement, api } from 'lwc';
 
 export default class ComponentModalDialogContent extends LightningElement {
     actionProgressIndicator = false;
+    actionProgressMessage;
+    errorMessage;
 
     @api header;
     @api actionTitle = 'Save';
@@ -24,6 +26,11 @@ export default class ComponentModalDialogContent extends LightningElement {
 
     @api stopActionProgress() {
         this.actionProgressIndicator = false;
+        this.actionProgressMessage = null;
+    }
+
+    @api notifyActionProgress(message) {
+        this.actionProgressMessage = message;
     }
 
     onCancelClicked() {
@@ -32,5 +39,25 @@ export default class ComponentModalDialogContent extends LightningElement {
 
     get isActionDisabled() {
         return this.actionProgressIndicator || this.actionDisabled;
+    }
+
+    get isActionProgressMessageVisible() {
+        return this.actionProgressMessage && this.actionProgressIndicator;
+    }
+
+    get displayError() {
+        return this.errorMessage;
+    }
+
+    onErrorClosed() {
+        this.errorMessage = null;
+    }
+
+    @api showError(error) {
+        if (error instanceof String) {
+            this.errorMessage = message;
+        } else {
+            this.errorMessage = JSON.stringify(error);
+        }
     }
 }

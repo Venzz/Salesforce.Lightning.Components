@@ -1,5 +1,5 @@
 <template>
-    <div class="slds-grid slds-grid_vertical">
+    <div class="slds-grid slds-grid_vertical" style="position: relative;">
         <template if:false={isHeaderEmpty}>
             <header class="slds-modal__header">
                 <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{header}</h2>
@@ -15,8 +15,29 @@
             <slot></slot>
         </div>
         <footer class="slds-modal__footer">
+            <template if:true={isActionProgressMessageVisible}>
+                <button class="slds-button slds-button_neutral" style="background-color: transparent; border-color: transparent; color: black;" disabled>{actionProgressMessage}</button>
+            </template>
             <button class="slds-button slds-button_neutral" onclick={onCancelClicked} disabled={actionProgressIndicator}>{cancelTitle}</button>
             <button class="slds-button slds-button_brand" onclick={onActionClicked} disabled={isActionDisabled}>{actionTitle}</button>
         </footer>
+
+        <template if:true={displayError}>
+            <div class="slds-notify_container" style="position: absolute; padding: 8px;">
+                <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
+                        <lightning-icon icon-name="utility:error" size="small" variant="inverse"></lightning-icon>
+                    </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small" style="overflow-wrap: anywhere;">{errorMessage}</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close" onclick={onErrorClosed}>
+                            <lightning-icon icon-name="utility:close" size="small" variant="inverse"></lightning-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
     </div>
 </template>
